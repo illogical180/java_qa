@@ -1,0 +1,19 @@
+apply plugin: 'java'
+apply plugin: 'application'
+mainClassName = "MainClass"
+     repositories {
+         jcenter()
+         mavenCentral()
+         maven {
+            url "https://repo.maven.apache.org/maven2/"
+         }
+     }
+     dependencies {
+         implementation "org.testng:testng:7.0.0-beta7"
+         implementation 'org.seleniumhq.selenium:selenium-java:4.0.0-alpha-2'
+         implementation 'junit:junit:4.13-beta-3'
+         implementation 'org.hamcrest:hamcrest-core:2.1'
+         implementation 'org.hamcrest:hamcrest-library:2.1'
+         implementation 'org.hamcrest:hamcrest:2.1'
+     }
+ 
