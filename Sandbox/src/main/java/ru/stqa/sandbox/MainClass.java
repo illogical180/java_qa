@@ -4,12 +4,8 @@ public class MainClass {
 
 public static void main (String[] args) {
 
-Point p1 = new Point();
-Point p2 = new Point();
-p1.x = -5;
-p1.y = 1;
-p2.x = 1;
-p2.y = 7;
+Point p1 = new Point(-5,4);
+Point p2 = new Point(2,2);
     System.out.println("Расстояние между точками равно " + distance(p1,p2));
 
 }
