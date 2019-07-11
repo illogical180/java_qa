@@ -46,7 +46,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void initEditContact() {
-        click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='soma.mail@mail3.com'])[1]/following::img[2]"));
+        click(By.xpath(".//*[@title='Edit']"));
     }
     public void submitContactUpdate() {
         click(By.name("update"));
