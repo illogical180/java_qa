@@ -38,7 +38,7 @@ public class ApplicationManager {
         System.setProperty("webdriver.ie.driver","C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\addressbook-web-tests\\IEDriverServer.exe");
 
         baseUrl = "https://www.katalon.com/";
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         driver.get("http://localhost/addressbook/");
         groupHelper = new GroupHelper(driver);
         contactHelper = new ContactHelper(driver);
