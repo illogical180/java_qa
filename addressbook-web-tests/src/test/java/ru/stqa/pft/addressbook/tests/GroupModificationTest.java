@@ -14,7 +14,7 @@ public class GroupModificationTest extends TestBase {
         if (!app.getGroupHelper().isThereAGroup()){
             app.getGroupHelper().createGroup(new GroupData("test7",null,null));
         }
-        app.getGroupHelper().SelectGroup();
+        app.getGroupHelper().SelectGroup(before - 1);
         app.getGroupHelper().initGroupModofication();
         app.getGroupHelper().fillGroupCreation(new GroupData("test7", "test8", "test9"));
         app.getGroupHelper().submitGroupModification();
