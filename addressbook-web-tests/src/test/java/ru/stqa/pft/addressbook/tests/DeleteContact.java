@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.tests;
 import static org.testng.Assert.*;
 import org.openqa.selenium.*;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
@@ -17,6 +18,7 @@ public class DeleteContact extends TestBase {
         }
         app.getContactHelper().selectContact();
         app.getContactHelper().deleteSelectedContact();
+
 
     }
 
