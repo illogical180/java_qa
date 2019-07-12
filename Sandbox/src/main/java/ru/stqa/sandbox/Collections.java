@@ -8,11 +8,11 @@ public class Collections {
     public static void main(String[] args){
         String[] lengs = {"Java","C#","Python","PHP"};
 
-        List languages = Arrays.asList("Java","C#","PHP","Python");
+        List<String> languages = Arrays.asList("Java","C#","PHP","Python");
 
 
-        for (Object l : languages){
-            System.out.println("I wanna learn "+languages.get(l));
+        for (String l : languages){
+            System.out.println("I wanna learn "+l);
         }
 
 
