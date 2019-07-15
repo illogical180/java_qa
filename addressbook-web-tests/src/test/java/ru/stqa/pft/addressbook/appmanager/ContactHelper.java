@@ -4,8 +4,13 @@ import org.junit.Assert;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.GroupData;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.testng.Assert.assertTrue;
 
@@ -34,7 +39,7 @@ public class ContactHelper extends HelperBase {
         if (creation) {
 
              {
-                new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+                new Select(driver.findElement(By.name("new_group"))).selectByVisibleText("test1");
             }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -79,6 +84,19 @@ public class ContactHelper extends HelperBase {
 
     public boolean isThereAContact() {
         return isElementPresent(By.name("selected[]"));
+    }
+
+    public List<ContactData> getContactList() {
+        List<ContactData> contacts = new ArrayList<ContactData>();
+        List<WebElement> elements = driver.findElements(By.xpath("//tr[@name='entry']"));
+        for (WebElement element : elements){
+            String name = element.findElement(By.cssSelector("td:nth-child(3)")).getText();
+            String surname = element.findElement(By.cssSelector("td:nth-child(2)")).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+            ContactData contact = new ContactData(id,name,surname,null,null,null,null,null,null);
+            contacts.add(contact);
+        }
+        return contacts;
     }
 }
 

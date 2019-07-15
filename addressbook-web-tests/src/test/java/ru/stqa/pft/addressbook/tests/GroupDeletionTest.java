@@ -6,7 +6,7 @@ import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
-public class DeleteGroup extends TestBase {
+public class GroupDeletionTest extends TestBase {
 
 
   @Test
