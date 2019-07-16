@@ -4,17 +4,11 @@ import java.util.Objects;
 
 public class GroupData {
 
-    private int Id;
-    private final String name;
-    private final String header;
-    private final String footer;
+    private int Id = Integer.MAX_VALUE;
+    private  String name;
+    private  String header;
+    private  String footer;
 
-       public GroupData(int Id, String name, String header, String footer) {
-        this.Id = Id;
-        this.name = name;
-        this.header = header;
-        this.footer = footer;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -29,23 +23,35 @@ public class GroupData {
         return Objects.hash(name);
     }
 
-    public GroupData(String name, String header, String footer) {
-        this.Id = Integer.MAX_VALUE;
-        this.name = name;
-        this.header = header;
-        this.footer = footer;
-    }
-
-    public int getId() {
-        return Id;
-    }
-
     @Override
     public String toString() {
         return "GroupData{" +
                 "Id='" + Id + '\'' +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public GroupData withId(int id) {
+        Id = id;
+        return this;
+    }
+
+    public GroupData withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public GroupData withHeader(String header) {
+        this.header = header;
+        return this;
+    }
+
+    public GroupData withFooter(String footer) {
+        this.footer = footer;
+        return this;
+    }
+    public int getId() {
+        return Id;
     }
 
     public String getName() {
@@ -59,8 +65,6 @@ public class GroupData {
     public String getFooter() {
         return footer;
     }
-    public void setId(int id) {
-        Id = id;
-    }
+
 
 }
