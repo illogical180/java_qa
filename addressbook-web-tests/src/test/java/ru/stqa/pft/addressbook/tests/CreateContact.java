@@ -20,7 +20,7 @@ public class CreateContact extends TestBase {
   @Test
   public void testCreateContact() throws Exception {
     List<ContactData> before = app.getContactHelper().getContactList();
-    app.getNavigationHelper().gotoNewContactPage();
+    app.goTo().gotoNewContactPage();
     ContactData contact = new ContactData("Max","Cher",null,null,null,null,null,null);
     app.getContactHelper().createContact(contact,true);
     List<ContactData> after = app.getContactHelper().getContactList();
