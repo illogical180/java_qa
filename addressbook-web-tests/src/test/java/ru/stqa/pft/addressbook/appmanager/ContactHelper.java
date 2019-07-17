@@ -127,11 +127,26 @@ public class ContactHelper extends HelperBase {
                 .withPhonenumber1(home).withPhonenumber2(mobile).withPhonenumber3(work).withEmail1(email1).withEmail2(email2).withEmail3(email3);
 
     }
+    public ContactData infoFromStatusForm(ContactData contact) {
+        initContactStatusById(contact.getId());
+        String some = driver.findElement(By.xpath("//*[@id=\"content\"]")).getText();
+        driver.navigate().back();
+        return new ContactData().withId(contact.getId()).withSome(some);
+
+    }
+
     private void initContactModificationById(int id){
         WebElement checkbox = driver.findElement(By.cssSelector(String.format("input[value='%s']", id)));
         WebElement row = checkbox.findElement(By.xpath("//tr[@name='entry']"));
-        List<WebElement> cells = row.findElements(By.tagName("td"));
+        List<WebElement> cells = row.findElements(By.tagName(
+                "td"));
         cells.get(7).findElement(By.tagName("a")).click();
+    }
+    private void initContactStatusById(int id){
+        WebElement checkbox = driver.findElement(By.cssSelector(String.format("input[value='%s']", id)));
+        WebElement row = checkbox.findElement(By.xpath("//tr[@name='entry']"));
+        List<WebElement> cells = row.findElements(By.tagName("td"));
+        cells.get(6).findElement(By.tagName("a")).click();
     }
     public void delete(ContactData contact) {
         selectContact(contact.getId());
