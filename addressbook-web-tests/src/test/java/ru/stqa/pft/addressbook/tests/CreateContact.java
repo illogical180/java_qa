@@ -4,11 +4,15 @@ import org.openqa.selenium.*;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
-
+import ru.stqa.pft.addressbook.model.Contacts;
 
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class CreateContact extends TestBase {
   private WebDriver driver;
@@ -19,18 +23,16 @@ public class CreateContact extends TestBase {
 
   @Test
   public void testCreateContact() throws Exception {
-    List<ContactData> before = app.getContactHelper().getContactList();
+    Set<ContactData> before = app.contact().all();
     app.goTo().gotoNewContactPage();
-    ContactData contact = new ContactData("Max","Cher",null,null,null,null,null,null);
-    app.getContactHelper().createContact(contact,true);
-    List<ContactData> after = app.getContactHelper().getContactList();
+    ContactData contact = new ContactData().withFirstname("Max").withLastname("Cher");
+    app.contact().createContact(contact,true);
+    Set<ContactData> after = app.contact().all();
     Assert.assertEquals(after.size(), before.size() + 1);
-
+    contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt());
     before.add(contact);
-    Comparator<? super ContactData> byId = (g1, g2) -> Integer.compare(g1.getId(),g2.getId());
-    before.sort(byId);
-    after.sort(byId);
-    Assert.assertEquals(before, after);
+    Assert.assertEquals(before,after);
+
 
 
   }
