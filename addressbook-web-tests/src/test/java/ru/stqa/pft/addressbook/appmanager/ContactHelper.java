@@ -41,7 +41,9 @@ public class ContactHelper extends HelperBase {
         type(By.name("home"), contactData.getPhoneNumber1());
         type(By.name("mobile"), contactData.getPhoneNumber2());
         type(By.name("work"), contactData.getPhoneNumber3());
-        type(By.name("email"), contactData.getEmail());
+        type(By.name("email"), contactData.getEmail1());
+        type(By.name("email2"), contactData.getEmail2());
+        type(By.name("email3"), contactData.getEmail3());
         if (creation) {
 
             {
@@ -101,9 +103,10 @@ public class ContactHelper extends HelperBase {
                 String name = row.findElement(By.cssSelector("td:nth-child(3)")).getText();
                 String surname = row.findElement(By.cssSelector("td:nth-child(2)")).getText();
                 int id = Integer.parseInt(row.findElement(By.tagName("input")).getAttribute("value"));
+                String allEmails = row.findElement(By.cssSelector("td:nth-child(5)")).getText();
                 String allPhones = row.findElement(By.cssSelector("td:nth-child(6)")).getText();
                 contacts.add(new ContactData().withId(id).withFirstname(name).withLastname(surname)
-                        .withAllPhones(allPhones));
+                        .withAllPhones(allPhones).withAllEmails(allEmails));
 
             }
             return contacts;
@@ -116,9 +119,12 @@ public class ContactHelper extends HelperBase {
         String home = driver.findElement(By.name("home")).getAttribute("value");
         String mobile = driver.findElement(By.name("mobile")).getAttribute("value");
         String work = driver.findElement(By.name("work")).getAttribute("value");
+        String email1 = driver.findElement(By.name("email")).getAttribute("value");
+        String email2 = driver.findElement(By.name("email2")).getAttribute("value");
+        String email3 = driver.findElement(By.name("email3")).getAttribute("value");
         driver.navigate().back();
         return new ContactData().withId(contact.getId()).withFirstname(firstname).withLastname(lastname)
-                .withPhonenumber1(home).withPhonenumber2(mobile).withPhonenumber3(work);
+                .withPhonenumber1(home).withPhonenumber2(mobile).withPhonenumber3(work).withEmail1(email1).withEmail2(email2).withEmail3(email3);
 
     }
     private void initContactModificationById(int id){
