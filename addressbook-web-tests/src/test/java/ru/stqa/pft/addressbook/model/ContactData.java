@@ -3,6 +3,7 @@ package ru.stqa.pft.addressbook.model;
 import java.util.Objects;
 
 public class ContactData {
+    private int id = Integer.MAX_VALUE;
     private String firstname;
     private String lastname;
     private String address;
@@ -10,7 +11,6 @@ public class ContactData {
     private String phonenumber2;
     private String phonenumber3;
     private String email;
-    private int id = Integer.MAX_VALUE;
     private String group;
     private String allPhones;
 

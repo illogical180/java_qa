@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.HashSet;
 import java.util.List;
@@ -52,7 +53,7 @@ public class ContactHelper extends HelperBase {
     }
 
     public void selectContact(int id) {
-        driver.findElement(By.cssSelector("id[value='" + id + "']")).click();
+        driver.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
     public void deleteSelectedContact() {
         click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Select all'])[1]/following::input[2]"));
@@ -93,8 +94,8 @@ public class ContactHelper extends HelperBase {
     }
 
 
-    public Set<ContactData> all() {
-            Set<ContactData> contacts = new HashSet<ContactData>();
+    public Contacts all() {
+        Contacts contacts = new Contacts();
             List<WebElement> rows = driver.findElements(By.xpath("//tr[@name='entry']"));
             for (WebElement row : rows) {
                 String name = row.findElement(By.cssSelector("td:nth-child(3)")).getText();
@@ -129,7 +130,6 @@ public class ContactHelper extends HelperBase {
     public void delete(ContactData contact) {
         selectContact(contact.getId());
         deleteSelectedContact();
-        returnToHomePage();
     }
 }
 
