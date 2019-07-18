@@ -14,5 +14,6 @@ apply plugin: 'java'
          implementation 'org.hamcrest:hamcrest-library:2.1'
          implementation 'org.hamcrest:hamcrest:2.1'
          implementation 'org.hamcrest:java-hamcrest:2.0.0.0'
+         implementation 'com.beust:jcommander:1.72'
      }
  
