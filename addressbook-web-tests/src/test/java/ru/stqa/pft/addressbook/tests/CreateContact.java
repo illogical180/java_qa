@@ -8,6 +8,7 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.Groups;
 
 
+import java.io.File;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
@@ -27,7 +28,8 @@ public class CreateContact extends TestBase {
   public void testCreateContact() throws Exception {
     Contacts before = app.contact().all();
     app.goTo().gotoNewContactPage();
-    ContactData contact = new ContactData().withFirstname("Max").withLastname("Cher");
+    File photo = new File("src/test/resources/khfno.jpg");
+    ContactData contact = new ContactData().withFirstname("Max").withLastname("Cher").withPhoto(photo);
     app.contact().createContact(contact,true);
     Contacts after = app.contact().all();
     assertThat(after.size(), equalTo(before.size() + 1));
@@ -36,5 +38,13 @@ public class CreateContact extends TestBase {
 
 
 
+  }
+@Test
+  public void testCurrentDir(){
+    File currentDir = new File(".");
+  System.out.println(currentDir.getAbsolutePath());
+  File photo = new File("src/test/resources/khfno.jpg");
+  System.out.println(photo.getAbsolutePath());
+  System.out.println(photo.exists());
   }
 }
