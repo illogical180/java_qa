@@ -1,10 +1,9 @@
+import org.gradle.api.tasks.testing.Test
+
 apply plugin: 'java'
      repositories {
          jcenter()
          mavenCentral()
-         maven {
-            url "https://repo.maven.apache.org/maven2/"
-         }
      }
      dependencies {
          implementation "org.testng:testng:7.0.0-beta7"
@@ -18,4 +17,13 @@ apply plugin: 'java'
          implementation 'com.thoughtworks.xstream:xstream:1.4.11.1'
          implementation 'com.google.code.gson:gson:2.8.5'
      }
- 
+task testGroups(type: Test){
+     useTestNG{
+         suites 'src/test/resources/testng-groups.xml'
+     }
+ }
+task testContacts(type: Test){
+    useTestNG{
+        suites 'src/test/resources/testng-contacts.xml'
+    }
+}

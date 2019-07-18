@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="ru.stqa.pft.addressbook.tests.CreateContact" tests="2" skipped="0" failures="0" errors="0" timestamp="2019-07-18T11:56:50" hostname="cherniavskyi" time="3.023">
+  <properties/>
+  <testcase name="testCreateContact" classname="ru.stqa.pft.addressbook.tests.CreateContact" time="3.019"/>
+  <testcase name="testCurrentDir" classname="ru.stqa.pft.addressbook.tests.CreateContact" time="0.001"/>
+  <system-out><![CDATA[C:\Users\cherniavskyi\Documents\GitHub\java_qa\addressbook-web-tests\.
+C:\Users\cherniavskyi\Documents\GitHub\java_qa\addressbook-web-tests\src\test\resources\khfno.jpg
+true
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
