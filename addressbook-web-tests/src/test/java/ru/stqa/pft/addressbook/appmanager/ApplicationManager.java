@@ -7,7 +7,6 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
@@ -22,7 +21,6 @@ public class ApplicationManager {
     private NavigationHelper navigationHelper;
     private GroupHelper groupHelper;
     private ContactHelper contactHelper;
-    private String baseUrl;
     private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
     private String browser;
@@ -47,8 +45,7 @@ public class ApplicationManager {
         System.setProperty("webdriver.chrome.driver","C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\addressbook-web-tests\\chromedriver.exe");
         System.setProperty("webdriver.ie.driver","C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\addressbook-web-tests\\IEDriverServer.exe");
 
-        baseUrl = "https://www.katalon.com/";
-        driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         driver.get(properties.getProperty("web.baseUrl"));
         groupHelper = new GroupHelper(driver);
         contactHelper = new ContactHelper(driver);

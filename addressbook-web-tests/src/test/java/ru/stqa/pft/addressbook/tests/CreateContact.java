@@ -1,36 +1,55 @@
 package ru.stqa.pft.addressbook.tests;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import org.openqa.selenium.*;
-import org.testng.Assert;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.Groups;
 
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.util.Comparator;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.testng.Assert.assertEquals;
 
 public class CreateContact extends TestBase {
+  Logger logger = LoggerFactory.getLogger(GroupCreationTest.class);
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
-
-  @Test
-  public void testCreateContact() throws Exception {
+  @DataProvider
+  public Iterator<Object[]> contactsFromJson() throws IOException {
+    try(BufferedReader reader = new BufferedReader(new FileReader(new File(System.getProperty("file","src/test/resources/contacts.json"))))) {
+      String json = "";
+      String line = reader.readLine();
+      while (line != null) {
+        json += line;
+        line = reader.readLine();
+      }
+      Gson gson = new Gson();
+      List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {
+      }.getType());
+      return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
+    }
+  }
+  @Test(dataProvider = "contactsFromJson")
+  public void testCreateContact(ContactData contact) throws Exception {
     Contacts before = app.contact().all();
     app.goTo().gotoNewContactPage();
     File photo = new File("src/test/resources/khfno.jpg");
-    ContactData contact = new ContactData().withFirstname("Max").withLastname("Cher").withPhoto(photo);
-    app.contact().createContact(contact,true);
+    app.contact().create(contact,true);
     Contacts after = app.contact().all();
     assertThat(after.size(), equalTo(before.size() + 1));
     assertThat(after, equalTo(before.withAdded(contact.withId

@@ -8,11 +8,9 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
-import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+
 
 import static org.testng.Assert.assertTrue;
 
@@ -86,7 +84,7 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public void createContact(ContactData contactData, boolean b) {
+    public void create(ContactData contactData, boolean b) {
         fillContactCreation(contactData, b);
         submitContactCreation();
         returnToHomePage();

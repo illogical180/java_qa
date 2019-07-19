@@ -28,6 +28,9 @@ task testGroups(type: Test){
     if(project.hasProperty('target')){
         systemProperty 'target', "${targer}"
     }
+    if(project.hasProperty('file')){
+        systemProperty 'file', "${file}"
+    }
  }
 task testContacts(type: Test){
     useTestNG{
@@ -38,5 +41,8 @@ task testContacts(type: Test){
 }
     if(project.hasProperty('target')){
         systemProperty 'target', "${targer}"
+    }
+    if(project.hasProperty('file')){
+        systemProperty 'file', "${file}"
     }
 }

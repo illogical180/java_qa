@@ -52,10 +52,11 @@ public class GroupDataGenerator {
         }
     }
 
+
     private void saveAsJson(List<GroupData> groups, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(groups);
-        try (Writer writer = new FileWriter(file);){
+        try (Writer writer = new FileWriter(file)){
             writer.write(json);
         }
 
@@ -91,4 +92,5 @@ public class GroupDataGenerator {
 
         return groups;
     }
+
 }
