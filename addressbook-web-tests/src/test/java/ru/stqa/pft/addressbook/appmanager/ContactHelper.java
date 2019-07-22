@@ -42,7 +42,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("email"), contactData.getEmail1());
         type(By.name("email2"), contactData.getEmail2());
         type(By.name("email3"), contactData.getEmail3());
-        attach(By.name("photo"), contactData.getPhoto());
+
         if (creation) {
 
             {
@@ -52,6 +52,9 @@ public class ContactHelper extends HelperBase {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
         }
     }
+    //public void uploadContactPhoto(ContactData contactData) {
+    //    attach(By.name("photo"), contactData.getPhoto());
+    //}
 
     public void selectContact(int id) {
         driver.findElement(By.cssSelector("input[value='" + id + "']")).click();
@@ -86,6 +89,7 @@ public class ContactHelper extends HelperBase {
 
     public void create(ContactData contactData, boolean b) {
         fillContactCreation(contactData, b);
+        //uploadContactPhoto(contactData);
         submitContactCreation();
         returnToHomePage();
     }
