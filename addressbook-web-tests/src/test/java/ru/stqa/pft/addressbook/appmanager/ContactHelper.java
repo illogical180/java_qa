@@ -44,9 +44,9 @@ public class ContactHelper extends HelperBase {
         type(By.name("email3"), contactData.getEmail3());
 
         if (creation) {
-
-            {
-                new Select(driver.findElement(By.name("new_group"))).selectByVisibleText("test1");
+if(contactData.getGroups().size() > 0) {
+    Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
             }
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));

@@ -14,10 +14,10 @@ public class DeleteContact extends TestBase {
     @BeforeMethod
             public void ensurePreconditions() {
         app.goTo().gotoHomePage();
-        if (!app.contact().isThereAContact()) {
-            app.goTo().gotoNewContactPage();
-            app.contact().create(new ContactData().withFirstname("Max").withLastname("Cher").withAddress("Address").withPhonenumber1("Number1").withPhonenumber2("Number2").withPhonenumber3("Number3").withEmail1("Email").withGroup("test7"), true);
-        }
+       // if (!app.contact().isThereAContact()) {
+        //    app.goTo().gotoNewContactPage();
+        //    app.contact().create(new ContactData().withFirstname("Max").withLastname("Cher").withAddress("Address").withPhonenumber1("Number1").withPhonenumber2("Number2").withPhonenumber3("Number3").withEmail1("Email").withGroup("test7"), true);
+      //  }
     }
 
     @Test
