@@ -16,8 +16,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
 
@@ -25,9 +23,9 @@ public class GroupModificationTest extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
+        if(app.db().groups().size() == 0){
         app.goTo().groupPage();
-        if (app.group().all().size() == 0) {
-            app.group().create(new GroupData().withName("test1"));
+        app.group().create(new GroupData().withName("test1"));
         }
     }
     @DataProvider
@@ -47,11 +45,12 @@ public class GroupModificationTest extends TestBase {
     }
         @Test(dataProvider = "validGroupsFromJson")
         public void testGroupModification (GroupData group) {
-            Groups before = app.group().all();
+            Groups before = app.db().groups();
             GroupData modifiedGroup = before.iterator().next();
+            app.goTo().groupPage();
             app.group().modify(group);
             assertEquals(app.group().count(), before.size());
-            Groups after = app.group().all();
+            Groups after = app.db().groups();
         }
 
     }
