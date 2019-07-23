@@ -38,13 +38,16 @@ public class ContactData {
     @Type(type = "text")
     private String phonenumber3;
     @Expose
-    @Transient
+    @Column(name = "email")
+    @Type(type = "text")
     private String email1;
     @Expose
-    @Transient
+    @Column(name = "email2")
+    @Type(type = "text")
     private String email2;
     @Expose
-    @Transient
+    @Column(name = "email3")
+    @Type(type = "text")
     private String email3;
     @Transient
     private String allPhones;
@@ -53,8 +56,7 @@ public class ContactData {
     @Transient
     private String some;
     @Expose
-    @Column(name = "photo")
-    @Type(type = "text")
+    @Transient
     private String photo;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id")
@@ -155,12 +157,19 @@ public class ContactData {
         ContactData that = (ContactData) o;
         return id == that.id &&
                 Objects.equals(firstname, that.firstname) &&
-                Objects.equals(lastname, that.lastname);
+                Objects.equals(lastname, that.lastname) &&
+                Objects.equals(address, that.address) &&
+                Objects.equals(phonenumber1, that.phonenumber1) &&
+                Objects.equals(phonenumber2, that.phonenumber2) &&
+                Objects.equals(phonenumber3, that.phonenumber3) &&
+                Objects.equals(email1, that.email1) &&
+                Objects.equals(email2, that.email2) &&
+                Objects.equals(email3, that.email3);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstname, lastname, id);
+        return Objects.hash(id, firstname, lastname, address, phonenumber1, phonenumber2, phonenumber3, email1, email2, email3);
     }
 
     public String getFirstName() {

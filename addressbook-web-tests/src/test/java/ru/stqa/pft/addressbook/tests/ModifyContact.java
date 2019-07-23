@@ -19,16 +19,16 @@ import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class ModifyContact extends TestBase {
 
     @BeforeMethod
     public void ensurePreconditions() {
-        app.goTo().gotoHomePage();
-        //if (!app.contact().isThereAContact()) {
-         //   app.goTo().gotoNewContactPage();
-         //   app.contact().create(new ContactData().withFirstname("Max").withLastname("Cher").withAddress("Address").withPhonenumber1("Number1").withPhonenumber2("Number2").withPhonenumber3("Number3").withEmail1("Email").withGroup("test7"), true);
-       // }
+        if(app.db().contacts().size() == 0){
+            app.goTo().gotoHomePage();
+            app.contact().create(new ContactData().withFirstname("Max").withLastname("Cher").withAddress("Address").withPhonenumber1("Number1").withPhonenumber2("Number2").withPhonenumber3("Number3").withEmail1("Email"), true);
+        }
     }
 
     @DataProvider
@@ -49,15 +49,16 @@ public class ModifyContact extends TestBase {
 
     @Test(dataProvider = "contactsFromJson")
     public void testContactModification(ContactData contact) {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         ContactData modifiedContact = before.iterator().next();
         app.contact().initEditContact();
         app.contact().fillContactCreation(contact, false);
         app.contact().submitContactUpdate();
         app.goTo().gotoHomePage();
-        Assert.assertEquals(app.contact().count(), before.size() -1);
-        Contacts after = app.contact().all();
-        assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
+        assertEquals(app.contact().count(), before.size() -1);
+        Contacts after = app.db().contacts();
+        //assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
+        //verifyContactListInUI();
 
     }
 }

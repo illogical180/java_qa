@@ -57,7 +57,7 @@ if(contactData.getGroups().size() > 0) {
     //}
 
     public void selectContact(int id) {
-        driver.findElement(By.cssSelector("input[value='" + id + "']")).click();
+        driver.findElement(By.cssSelector("input[id='" + id + "']")).click();
     }
     public void deleteSelectedContact() {
         click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Select all'])[1]/following::input[2]"));
@@ -155,5 +155,37 @@ if(contactData.getGroups().size() > 0) {
         selectContact(contact.getId());
         deleteSelectedContact();
     }
+    public void moveToGroup(ContactData contact) {
+        selectContact(contact.getId());
+        driver.findElement(By.name("to_group")).click();
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Select all'])[1]/following::option[1]")).click();
+        driver.findElement(By.name("add")).click();
+        driver.findElement(By.linkText("group page \"test 2\"")).click();
+        driver.findElement(By.name("group")).click();
+        new Select(driver.findElement(By.name("group"))).selectByVisibleText("[all]");
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='last 11'])[1]/preceding::option[129]")).click();
+    }
+    public void checkGroup(ContactData contact) {
+        driver.findElement(By.name("group")).click();
+        new Select(driver.findElement(By.name("group"))).selectByVisibleText("test 2");
+
+        if(!isElementPresent(By.name("selected[]"))){
+            driver.findElement(By.name("group")).click();
+            new Select(driver.findElement(By.name("group"))).selectByVisibleText("[all]");
+            moveToGroup(contact);
+            driver.findElement(By.name("group")).click();
+            new Select(driver.findElement(By.name("group"))).selectByVisibleText("test 2");
+        }
+    }
+    public void removeFromGroup(ContactData contact) {
+        checkGroup(contact);
+        driver.findElement(By.name("selected[]")).click();
+        driver.findElement(By.name("remove")).click();
+        driver.findElement(By.linkText("group page \"test 2\"")).click();
+        driver.findElement(By.name("group")).click();
+        new Select(driver.findElement(By.name("group"))).selectByVisibleText("[all]");
+        driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='last 7'])[1]/preceding::option[2]")).click();
+    }
 }
+//*[@id="right"]/select/option[1]
 
