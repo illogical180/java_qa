@@ -53,7 +53,7 @@ public class ApplicationManager {
         contactHelper = new ContactHelper(driver);
         navigationHelper = new NavigationHelper(driver);
         sessionHelper = new SessionHelper(driver);
-        sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPass"), By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]"), properties.getProperty("web.adminLoginType"), properties.getProperty("web.adminPassType"));
+        sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"), By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Password:'])[1]/following::input[2]"), properties.getProperty("web.adminLoginType"), properties.getProperty("web.adminPassType"));
     }
 
 

@@ -1,7 +1,6 @@
 package ru.stqa.pft.mantis.appmanager;
 
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -20,7 +19,6 @@ public class ApplicationManager {
     private final Properties properties;
     protected WebDriver driver;
 
-    private boolean acceptNextAlert = true;
     private StringBuffer verificationErrors = new StringBuffer();
     private String browser;
 
@@ -40,9 +38,9 @@ public class ApplicationManager {
         } else if (browser.equals(BrowserType.IE)) {
             driver = new InternetExplorerDriver();
         }
-        System.setProperty("webdriver.gecko.driver", "C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\addressbook-web-tests\\geckodriver.exe");
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\addressbook-web-tests\\chromedriver.exe");
-        System.setProperty("webdriver.ie.driver", "C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\addressbook-web-tests\\IEDriverServer.exe");
+        System.setProperty("webdriver.gecko.driver", "C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\mantis-tests\\geckodriver.exe");
+        System.setProperty("webdriver.chrome.driver", "C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\mantis-tests\\chromedriver.exe");
+        System.setProperty("webdriver.ie.driver", "C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\mantis-tests\\IEDriverServer.exe");
 
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         driver.get(properties.getProperty("web.baseUrl"));
@@ -58,20 +56,11 @@ public class ApplicationManager {
         }
     }
 
-
-    private String closeAlertAndGetItsText() {
-        try {
-            Alert alert = driver.switchTo().alert();
-            String alertText = alert.getText();
-            if (acceptNextAlert) {
-                alert.accept();
-            } else {
-                alert.dismiss();
-            }
-            return alertText;
-        } finally {
-            acceptNextAlert = true;
-        }
+    public HttpSession newSession(){
+        return new HttpSession(this);
+    }
+    public String getProperty(String key){
+        return properties.getProperty(key);
     }
 }
 
