@@ -17,10 +17,12 @@ import static org.testng.Assert.fail;
 
 public class ApplicationManager {
     private final Properties properties;
-    protected WebDriver driver;
+    private WebDriver driver;
 
     private StringBuffer verificationErrors = new StringBuffer();
     private String browser;
+    private RegistrationHelper registrationHelper;
+    private FtpHelper ftp;
 
     public ApplicationManager(String browser) {
         this.browser = browser;
@@ -30,29 +32,15 @@ public class ApplicationManager {
     public void init() throws IOException {
         String target = System.getProperty("target", "local");
         properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
-
-        if (browser.equals(BrowserType.FIREFOX)) {
-            driver = new FirefoxDriver();
-        } else if (browser.equals(BrowserType.CHROME)) {
-            driver = new ChromeDriver();
-        } else if (browser.equals(BrowserType.IE)) {
-            driver = new InternetExplorerDriver();
-        }
-        System.setProperty("webdriver.gecko.driver", "C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\mantis-tests\\geckodriver.exe");
-        System.setProperty("webdriver.chrome.driver", "C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\mantis-tests\\chromedriver.exe");
-        System.setProperty("webdriver.ie.driver", "C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\mantis-tests\\IEDriverServer.exe");
-
-        driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-        driver.get(properties.getProperty("web.baseUrl"));
-
     }
 
-
     public void stop() {
-        driver.quit();
-        String verificationErrorString = verificationErrors.toString();
-        if (!"".equals(verificationErrorString)) {
-            fail(verificationErrorString);
+        if (driver != null) {
+            driver.quit();
+            String verificationErrorString = verificationErrors.toString();
+            if (!"".equals(verificationErrorString)) {
+                fail(verificationErrorString);
+            }
         }
     }
 
@@ -61,6 +49,39 @@ public class ApplicationManager {
     }
     public String getProperty(String key){
         return properties.getProperty(key);
+    }
+
+    public RegistrationHelper registration() {
+        if (registrationHelper == null) {
+            registrationHelper = new RegistrationHelper(this);
+        }
+        return registrationHelper;
+    }
+
+    public FtpHelper ftp() {
+        if (ftp == null) {
+            ftp = new FtpHelper(this);
+        }
+        return ftp;
+    }
+
+    public WebDriver getDriver() {
+        if (driver == null) {
+            if (browser.equals(BrowserType.FIREFOX)) {
+                driver = new FirefoxDriver();
+            } else if (browser.equals(BrowserType.CHROME)) {
+                driver = new ChromeDriver();
+            } else if (browser.equals(BrowserType.IE)) {
+                driver = new InternetExplorerDriver();
+            }
+            System.setProperty("webdriver.gecko.driver", "C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\mantis-tests\\geckodriver.exe");
+            System.setProperty("webdriver.chrome.driver", "C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\mantis-tests\\chromedriver.exe");
+            System.setProperty("webdriver.ie.driver", "C:\\Users\\cherniavskyi\\Documents\\GitHub\\java_qa\\mantis-tests\\IEDriverServer.exe");
+
+            driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+            driver.get(properties.getProperty("web.baseUrl"));
+        }
+        return driver;
     }
 }
 
