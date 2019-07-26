@@ -166,7 +166,7 @@ public class JamesHelper {
     //Этот метод извлекает сообщение из почтового ящика и превращает его в модельный объект типа MailMessage.
     public List<MailMessage> getAllMail(String username, String password) throws MessagingException {
         Folder inbox = openInbox(username, password); //Тут почтовый ящик открывается
-        List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map((m) -> toModelMail(m)).collect(Collectors.toList());
+        List<MailMessage> messages = Arrays.stream(inbox.getMessages()).map(JamesHelper::toModelMail).collect(Collectors.toList());
         closeFolder(inbox); //Тут почтовый ящик закрывается.
         return messages;
     }
@@ -175,10 +175,7 @@ public class JamesHelper {
     public static MailMessage toModelMail(Message m) {
         try {
             return new MailMessage(m.getAllRecipients()[0].toString(), (String) m.getContent());
-        } catch (MessagingException e) {
-            e.printStackTrace();
-            return null;
-        } catch (IOException e) {
+        } catch (MessagingException | IOException e) {
             e.printStackTrace();
             return null;
         }
